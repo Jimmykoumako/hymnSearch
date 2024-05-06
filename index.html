@@ -10,9 +10,11 @@
 
 <body>
     <div class="container" >
-        <h1>Hymn Search App</h1>
-        <input onchange="searchHymn()" type="text" id="searchInput" placeholder="Enter hymn title or number">
-        <button onclick="searchHymn()">Search</button>
+        <div class="filter">
+            <h1>HBC Hymn Search</h1>
+            <input onchange="searchHymn()" type="text" id="searchInput" placeholder="Enter hymn title or number">
+            <button onclick="searchHymn()">Search</button>
+        </div>
         <div id="searchResults"></div>
     </div>
 
