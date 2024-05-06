@@ -1,325 +1,50 @@
+async function loadJSONFile(filename) {
+   try {
+      const response = await fetch(filename);
+      if (!response.ok) {
+         throw new Error(`JSON loading error! Status: ${response.status}`);
+      }
+      return await response.json();
+   } catch (error) {
+      console.error('Error loading JSON file:', error);
+   }
+}
 
- const hymns = [
-    {number: '317', title: "A CHARGE TO KEEP I HAVE.", lyrics: "" },
-    {number: '279', title: "A CHILD OF THE KING!", lyrics: "" },
-    {number: '525', title: "A CHRISTIAN HOME.", lyrics: "" },
-    {number: '391', title: "A FLAG TO FOLLOW", lyrics: "" },
-    {number: '494', title: "A Friend I have called Jesus", lyrics: "" },
-    {number: '184', title: "A GLORIOUS CHURCH", lyrics: "" },
-    {number: '36',  title: "A MIGHTY FORTRESS IS OUR GOD.", lyrics: "" },
-    {number: '306', title: "A PASSION FOR SOULS..", lyrics: "" },
-    {number: '292', title: "A pilgrim was I, and awand'ring....", lyrics: "" },
-    {number: '194', title: "A ruler once came to Jesus by night.", lyrics: "" },
-    {number: '263', title: "A SHELTER IN THE TIME OF STORM.", lyrics: "" },
-    {number: '406', title: "A soldier in the army of the King of", lyrics: "" },
-    {number: '324', title: "A STUDENT'S PRAYER", lyrics: "" },
-    {number: '258', title: "A wonderful Savior is Jesus my Lord", lyrics: "" },
-    {number: '75',  title: "ABIDE WITH ME", lyrics: "" },
-    {number: '192', title: "ACCORDING TO THY GRACIOUS WORD", lyrics: "" },
-    {number: '501', title: "AFTER", lyrics: "" },
-    {number: '129', title: "Alas! and did my Savior (Hudson)", lyrics: "" },
-    {number: '110', title: "ALAS! AND DID MY SAVIOR (Wilson)", lyrics: "" },
-    {number: '31', title: "ALL CREATURES OF OUR GOD AND KING", lyrics: "" },
-    {number: '386', title: "ALL FOR JESUS", lyrics: "" },
-    {number: '108', title: "ALL GLORY, LAUD AND HONOR", lyrics: "" },
-    {number: '47', title: "ALL GLORY TO JESUS", lyrics: "" },
-    {number: '42', title: "ALL HAIL THE POWER (Holden)..", lyrics: "" },
-    {number: '43', title: "ALL HAIL THE POWER (Shrubsole).", lyrics: "" },
-    {number: '446', title: "All my life long I had panted", lyrics: "" },
-    {number: '8', title: "ALL PEOPLE THAT ON EARTH DO DWELL", lyrics: "" },
-    {number: '463', title: "ALL THAT THRILLS MY SOUL", lyrics: "" },
-    {number: '296', title: "ALL THE WAY MY SAVIOR LEADS ME.", lyrics: "" },
-    {number: '537', title: "ALL THINGS COME OF THEE..", lyrics: "" },
-    {number: '267', title: "ALL THINGS WORK OUT FOR GOOD.", lyrics: "" },
-    {number: '394', title: "All to Jesus I surrender.", lyrics: "" },
-    {number: '536', title: "ALMIGHTY FATHER, HEAR OUR PRAYER.", lyrics: "" },
-    {number: '251', title: "ALMOST PERSUADED", lyrics: "" },
-    {number: '414', title: "AM I A SOLDIER OF THE CROSS?", lyrics: "" },
-    {number: '236', title: "AMAZING GRACE", lyrics: "" },
-    {number: '1000', title: "AMENS", lyrics: "" },
-    {number: '529', title: "AMERICA", lyrics: "" },
-    {number: '531', title: "AMERICA THE BEAUTIFUL", lyrics: "" },
-    {number: '22', title: "ANCIENT OF DAYS", lyrics: "" },
-    {number: '44', title: "AND CAN IT BE THAT I SHOULD GAIN?", lyrics: "" },
-    {number: '99', title: "ANGELS, FROM THE REALMS OF GLORY", lyrics: "" },
-    {number: '89', title: "ANGELS WE HAVE HEARD ON HIGH.", lyrics: "" },
-    {number: '520', title: "ANOTHER YEAR IS DAWNING", lyrics: "" },
-    {number: '422', title: "ANYWHERE WITH JESUS", lyrics: "" },
-    {number: '365', title: "\"ARE YE ABLE,\" SAID THE MASTER", lyrics: "" },
-    {number: '208', title: "ARE YOU WASHED IN THE BLOOD?", lyrics: ""},
-    {number: '223', title: "ARISE, MY SOUL, ARISE!", lyrics: ""},
-    {number: '239', title: "ART THOU WEARY?", lyrics: ""},
-    {number: '96', title: "AS WITH GLADNESS MEN OF OLD.", lyrics: ""},
-    {number: '477', title: "AT CALVARY", lyrics: ""},
-    {number: '129', title: "AT THE CROSS.", lyrics: ""},
-    {number: '9', title: "Awake, my soul, to joyful lays", lyrics: ""},
-    {number: '86', title: "AWAY IN A MANGER", lyrics: ""},
-    {number: '530', title: "BATTLE HYMN OF THE REPUBLIC", lyrics: ""},
-    {number: '290', title: "BE STILL, MY SOUL", lyrics: ""},
-    {number: '334', title: "BE THOU MY VISION", lyrics: ""},
-    {number: '50', title: "Beautiful Savior", lyrics: "", see: 50},
-    {number: '5', title: "BEGIN, MY TONGUE, SOME HEAVENLY", lyrics: ""},
-    {number: '309', title: "BENEATH THE CROSS OF JESUS", lyrics: ""},
-    {number: '1000', title: "BENEDICTION", lyrics: "", backCover: true},
-    {number: '515', title: "BEULAH LAND", lyrics: ""},
-    {number: '30', title: "BLESS THE LORD", lyrics: ""},
-    {number: '255', title: "BLESSED ASSURANCE", lyrics: ""},
-    {number: '196', title: "BLESSED BE THE FOUNTAIN", lyrics: ""},
-    {number: '32', title: "BLESSED BE THE NAME", lyrics: ""},
-    {number: '121', title: "BLESSED CALVARY!", lyrics: ""},
-    {number: '71', title: "BLESSED DAY OF REST AND CHEER", lyrics: ""},
-    {number: '345', title: "Blessed hour of prayer.", lyrics: ""},
-    {number: '159', title: "BLESSED QUIETNESS", lyrics: ""},
-    {number: '112', title: "BLESSED REDEEMER", lyrics: ""},
-    {number: '187', title: "BLEST BE THE TIE THAT BINDS..", lyrics: ""},
-    {number: '102', title: "Born among cattle, in poverty sore.", lyrics: ""},
-    {number: '176', title: "BREAK THOU THE BREAD OF LIFE", lyrics: ""},
-    {number: '164', title: "BREATHE ON ME, BREATH OF GOD..", lyrics: ""},
-    {number: '15', title: "BRETHREN, WE HAVE MET TO WORSHIP..", lyrics: ""},
-    {number: '371', title: "Brightly beams our Father's mercy", lyrics: ""},
-    {number: '436', title: "BRING THEM IN", lyrics: ""},
-    {number: '382', title: "Bring ye all the tithes into the store", lyrics: ""},
-    {number: '420', title: "BRINGING IN THE SHEAVES", lyrics: ""},
-    {number: '218', title: "BURDENS ARE LIFTED AT CALVARY", lyrics: ""},
-    {number: '160', title: "CHANNELS ONLY", lyrics: ""},
-    {number: '300', title: "Children of the heavenly Father", lyrics: "", see: 300},
-    {number: '138', title: "CHRIST AROSE", lyrics: ""},
-    {number: '136', title: "CHRIST IS RISEN FROM THE DEAD.", lyrics: ""},
-    {number: '466', title: "CHRIST LIVETH IN ME", lyrics: ""},
-    {number: '232', title: "Christ our Redeemer died on the cross", lyrics: ""},
-    {number: '199', title: "CHRIST RECEIVETH SINFUL MEN.", lyrics: ""},
-    {number: '156', title: "CHRIST RETURNETH!", lyrics: ""},
-    {number: '137', title: "CHRIST THE LORD IS RISEN TODAY", lyrics: ""},
-    {number: '166', title: "CLEANSE ME", lyrics: ""},
-    {number: '328', title: "CLOSE TO THEE", lyrics: ""},
-    {number: '55', title: "COME, CHRISTIANS, JOIN TO SING", lyrics: ""},
-    {number: '252', title: "Come, ev'ry soul by sin oppressed", lyrics: ""},
-    {number: '158', title: "COME, HOLY SPIRIT, HEAVENLY DOVE", lyrics: ""},
-    {number: '6', title: "COME, THOU ALMIGHTY KING", lyrics: ""},
-    {number: '17', title: "COME, THOU FOUNT", lyrics: ""},
-    {number: '84', title: "COME, THOU LONG-EXPECTED JESUS", lyrics: ""},
-    {number: '254', title: "COME TO THE SAVIOR", lyrics: ""},
-    {number: '514', title: "Come, we that love the Lord (Lowry)", lyrics: ""},
-    {number: '23', title: "COME, WE THAT LOVE THE (Williams)", lyrics: ""},
-    {number: '286', title: "COME, YE DISCONSOLATE", lyrics: ""},
-    {number: '526', title: "COME, YE THANKFUL PEOPLE", lyrics: ""},
-    {number: '151', title: "Coming again, coming again.", lyrics: ""},
-    {number: '411', title: "Conquering now and still to conquer", lyrics: ""},
-    {number: '478', title: "CONSTANTLY ABIDING", lyrics: ""},
-    {number: '370', title: "COUNT YOUR BLESSINGS..", lyrics: ""},
-    {number: '62', title: "CROWN HIM WITH MANY CROWNS", lyrics: ""},
-    {number: '363', title: "DARE TO BE A DANIEL", lyrics: ""},
-    {number: '299', title: "DAY BY DAY.", lyrics: ""},
-    {number: '78 ', title: "DAY IS DYING IN THE WEST", lyrics: ""},
-    {number: '358', title: "DEAR LORD AND FATHER OF MANKIND", lyrics: ""},
-    {number: '315', title: "DEEPER AND DEEPER", lyrics: ""},
-    {number: '233', title: "DEPTH OF MERCY", lyrics: ""},
-    {number: '289', title: "DOES JESUS CARE?", lyrics: ""},
-    {number: '489', title: "Down at the cross where my Savior died", lyrics: ""},
-    {number: '398', title: "Down in the valley with my Savior", lyrics: ""},
-    {number: '31', title: "DOXOLOGY", lyrics: ""},
-    {number: '314', title: "Draw me nearer, nearer, blessed Lord", lyrics: ""},
-    {number: '465', title: "Drinking at the springs of living water", lyrics: ""},
-    {number: '280', title: "Dying with Jesus by death reckoned mine", lyrics: ""},
-    {number: '402', title: "Encamped along the hills of light.", lyrics: ""},
-    {number: '168', title: "EVEN ME", lyrics: ""},
-    {number: '511', title: "FACE TO FACE", lyrics: ""},
-    {number: '266', title: "FADE, FADE, EACH EARTHLY JOY", lyrics: ""},
-    {number: '50', title: "FAIREST LORD JESUS", lyrics: ""},
-    {number: '402', title: "FAITH Is THE VICTORY.", lyrics: ""},
-    {number: '183', title: "FAITH OF OUR FATHERS", lyrics: ""},
-    {number: '419', title: "Far and near the fields are teeming", lyrics: ""},
-    {number: '288', title: "Far away in the depths of my spirit", lyrics: ""},
-    {number: '427', title: "Far, far away, in heathen darkness", lyrics: ""},
-    {number: '220', title: "Fierce and wild the storm is raging", lyrics: ""},
-    {number: '379', title: "FIGHT THE GOOD FIGHT", lyrics: ""},
-    {number: '330', title: "FILL ALL MY VISION.", lyrics: ""},
-    {number: '162', title: "FILL ME NOW", lyrics: ""},
-    {number: '383', title: "FOLLOW, I WILL FOLLOW THEE", lyrics: ""},
-    {number: '398', title: "FOLLOW ON", lyrics: ""},
-    {number: '483', title: "FOOTSTEPS OF JESUS", lyrics: ""},
-    {number: '508', title: "FOR ALL THE SAINTS", lyrics: ""},
-    {number: '154', title: "FOR GOD SO LOVED THE WORLD", lyrics: ""},
-    {number: '54', title: "FOR THE BEAUTY OF THE EARTH", lyrics: ""},
-    {number: '245', title: "For you I am praying", lyrics: ""},
-    {number: '205', title: "Free from the law-O happy condition", lyrics: ""},
-    {number: '355', title: "FROM EVERY STORMY WIND THAT BLOWS", lyrics: ""},
-    {number: '433', title: "FROM GREENLAND'S ICY MOUNTAINS", lyrics: ""},
-    {number: '408', title: "From over hill and plain there comes", lyrics: ""},
-    {number: '306', title: "Give me a passion for souls, dear Lord", lyrics: ""},
-    {number: '366', title: "GIVE ME THY HEART", lyrics: ""},
-    {number: '369', title: "GIVE OF YOUR BEST TO THE MASTER", lyrics: ""},
-    {number: '89', title: "Gloria in excelsis Deo!", lyrics: ""},
-    {number: "Front Cover", title: "GLORIA PATRI", lyrics: ""},
-    {number: '185', title: "GLORIOUS THINGS OF THEE ARE SPOKEN", lyrics: ""},
-    {number: "Front Cover", title: "GLORY BE TO THE FATHER", lyrics: ""},
-    {number: '489', title: "GLORY TO HIS NAME", lyrics: ""},
-    {number: '421', title: "GO TELL UNTOLD MILLIONS", lyrics: ""},
-    {number: '427', title: "GO YE INTO ALL THE WORLD", lyrics: ""},
-    {number: '82', title: "GOD BE WITH YOU.", lyrics: ""},
-    {number: '130', title: "GOD INCARNATE, JESUS CAME", lyrics: ""},
-    {number: '298', title: "GOD LEADS US ALONG", lyrics: ""},
-    {number: '14', title: "GOD OF EVERLASTING GLORY", lyrics: ""},
-    {number: '532', title: "GOD OF OUR FATHERS", lyrics: ""},
-    {number: '335', title: "GOD OF OUR YOUTH", lyrics: ""},
-    {number: '324', title: "God, the all-wise, and Creator", lyrics: ""},
-    {number: '297', title: "GOD WILL TAKE CARE OF YOU", lyrics: ""},
-    {number: '250', title: "GOD's FINAL CALL", lyrics: ""},
-    {number: '139', title: "GOLDEN HARPS ARE SOUNDING", lyrics: ""},
-    {number: '209', title: "GRACE GREATER THAN OUR SIN", lyrics: ""},
-    {number: '219', title: "GRACE! 'TIS A CHARMING SOUND", lyrics: ""},
-    {number: '524', title: "GRACIOUS SAVIOR, WHO DIDST HONOR", lyrics: ""},
-    {number: '12', title: "GREAT GOD OF WONDERS!", lyrics: ""},
-    {number: '519', title: "GREAT GOD, WE SING THAT MIGHTY", lyrics: ""},
-    {number: '40', title: "GREAT IS THY FAITHFULNESS", lyrics: "" },
-    {number: '291', title: "GUIDE ME, O THOU GREAT JEHOVAH", lyrics: "" },
-    {number: '145', title: "HAIL, THOU ONCE-DESPISED JESUS!", lyrics: "" },
-    {number: '434', title: "HAIL TO THE BRIGHTNESS", lyrics: "" },
-    {number: '211', title: "HALLELUJAH FOR THE CROSS!", lyrics: "" },
-    {number: '197', title: "HALLELUJAH, 'TIS DONE!", lyrics: "" },
-    {number: '127', title: "HALLELUJAH, WHAT A SAVIOR!", lyrics: "" },
-    {number: '523', title: "HAPPY THE HOME WHEN GOD IS THERE", lyrics: "" },
-    {number: '144', title: "HARK! TEN THOUSAND HARPS AND VOICES", lyrics: "" },
-    {number: '93', title: "HARK! THE HERALD ANGELS SING", lyrics: "" },
-    {number: '436', title: "Hark! 'tis the Shepherd's voice I hear", lyrics: "" },
-    {number: '368', title: "HAVE I DONE MY BEST FOR JESUS?", lyrics: "" },
-    {number: '388', title: "HAVE THINE OWN WAY", lyrics: "" },
-    {number: '241', title: "HAVE YOU ANY ROOM FOR JESUS?", lyrics: "" },
-    {number: '258', title: "HE HIDETH MY SOUL", lyrics: "" },
-    {number: '201', title: "HE IS ABLE TO DELIVER THEE", lyrics: "" },
-    {number: '155', title: "HE IS COMING AGAIN", lyrics: "" },
-    {number: '456', title: "HE IS SO PRECIOUS TO ME", lyrics: "" },
-    {number: '453', title: "HE KEEPS ME SINGING", lyrics: "" },
-    {number: '295', title: "HE LEADETH ME", lyrics: "" },
-    {number: '459', title: "HE LIFTED ME", lyrics: "" },
-    {number: '132', title: "HE LIVES", lyrics: "" },
-    {number: '445', title: "HE RANSOMED ME", lyrics: "" },
-    {number: '513', title: "HE THE PEARLY GATES WILL OPEN", lyrics: "" },
-    {number: '117', title: "HE WAS WOUNDED FOR OUR TRANSGRESSIONS", lyrics: "" },
-    {number: '535', title: "HEAR OUR PRAYER, O LORD", lyrics: "" },
-    {number: '473', title: "HEAVEN CAME DOWN AND GLORY FILLED", lyrics: "" },
-    {number: '491', title: "HEAVENLY JOY IS RINGING", lyrics: "" },
-    {number: '472', title: "HEAVENLY SUNLIGHT", lyrics: "" },
-    {number: '191', title: "HERE, O MY LORD, I SEE THEE FACE TO FACE", lyrics: "" },
-    {number: '282', title: "HIDING IN THEE", lyrics: "" },
-    {number: '9', title: "HIS LOVING-KINDNESS", lyrics: "" },
-    {number: '48', title: "HIS WAY WITH THEE", lyrics: "" },
-    {number: '367', title: "HOLD THE FORT", lyrics: "" },
-    {number: '409', title: "HOLY BIBLE, BOOK DIVINE", lyrics: "" },
-    {number: '179', title: "HOLY GHOST, WITH LIGHT DIVINE", lyrics: "" },
-    {number: '165', title: "HOLY GOD, WE PRAISE THY NAME", lyrics: "" },
-    {number: '28', title: "HOLY, HOLY, HOLY", lyrics: "" },
-    {number: '70', title: "HOLY SPIRIT, FAITHFUL GUIDE", lyrics: "" },
-    {number: '169', title: "HOLY SPIRIT, LIGHT DIVINE", lyrics: "" },
-    {number: '167', title: "HOMESICK FOR HEAVEN", lyrics: "" },
-    {number: '107', title: "HOSANNA, LOUD HOSANNA!", lyrics: "" },
-    {number: '162', title: "HOW BEAUTIFUL HEAVEN MUST BE", lyrics: "" },
-    {number: '67', title: "How can I fear with Jesus near?", lyrics: "" },
-    {number: '268', title: "HOW FIRM A FOUNDATION", lyrics: "" },
-    {number: '37', title: "HOW GREAT THOU ART", lyrics: "" },
-    {number: '25', title: "HOW HAPPY ARE THEY WHO THEIR SAVIOR", lyrics: "" },
-    {number: '53', title: "HOW SWEET THE NAME OF JESUS SOUNDS", lyrics: "" },
-    {number: '517', title: "I AM A POOR WAYFARING STRANGER", lyrics: "" },
-    {number: '240', title: "I AM COMING, LORD", lyrics: "" },
-    {number: '56', title: "I AM PRAYING FOR YOU", lyrics: "" },
-    {number: '226', title: "I AM RESOLVED", lyrics: "" },
-    {number: '245', title: "I am so glad that our Father in Heav", lyrics: "" },
-    {number: '215', title: "I AM THINE, O LORD", lyrics: "" },
-    {number: '389', title: "I AM TRUSTING THEE, LORD JESUS", lyrics: "" },
-    { number: '492', title: "I BELONG TO THE KING", lyrics: "" },
-    { number: '314', title: "I can hear my savior calling", lyrics: "" },
-    { number: '264', title: "I COME TO THE GARDEN ALONE", lyrics: "" },
-    { number: '375', title: "I GAVE MY LIFE FOR THEE", lyrics: "" },
-    { number: '397', title: "I HAVE DECIDED TO FOLLOW JESUS..", lyrics: "" },
-    { number: '447', title: "I HAVE FOUND A FRIEND IN JESUS", lyrics: "" },
-    { number: '125', title: "I HEAR MY SAVIOR SAY, \"THY STRENGTH\"", lyrics: "" },
-    { number: '240', title: "I HEAR THY WELCOME VOICE", lyrics: "" },
-    { number: '98', title: "I HEARD THE BELLS ON CHRISTMAS DAY", lyrics: "" },
-    { number: '225', title: "HEARD THE VOICE OF JESUS SAY", lyrics: "" },
-    { number: '224', title: "I KNOW NOT WHY GOD'S WONDROUS GRACE", lyrics: "" },
-    { number: '105', title: "I KNOW OF A NAME, A BEAUTIFUL NAME", lyrics: "" },
-    { number: '134', title: "I KNOW THAT MY REDEEMER LIVETH", lyrics: "" },
-    { number: '224', title: "I KNOW WHOM I HAVE BELIEVED", lyrics: "" },
-    { number: '121', title: "I LOOK AT THE CROSS UPON CALVARY", lyrics: "" },
-    { number: '188', title: "I LOVE THY KINGDOM, LORD", lyrics: "" },
-    { number: '431', title: "I LOVE TO TELL THE STORY", lyrics: "" },
-    { number: '344', title: "I MUST TELL JESUS", lyrics: "" },
-    { number: '318', title: "I NEED THEE EVERY HOUR", lyrics: "" },
-    { number: '132', title: "I SERVE A RISEN SAVIOR, HE'S IN THE", lyrics: "" },
-    { number: '27', title: "I SING THE MIGHTY POWER OF GOD", lyrics: "" },
-    { number: '391', title: "I SOUGHT A FLAG TO FOLLOW", lyrics: "" },
-    { number: '461', title: "I STAND ALL AMAZED AT THE LOVE JESUS", lyrics: "" },
-    { number: '452', title: "I STAND AMAZED IN THE PRESENCE", lyrics: "" },
-    { number: '394', title: "I SURRENDER ALL", lyrics: "" },
-    { number: '343', title: "I WANT A PRINCIPLE WITHIN", lyrics: "" },
-    { number: '464', title: "I WILL PRAISE HIM!", lyrics: "" },
-    { number: '488', title: "I WILL SING OF MY REDEEMER", lyrics: "" },
-    { number: '468', title: "WILL SING THE WONDROUS STORY", lyrics: "" },
-    { number: '307', title: "I WITH THEE WOULD BEGIN", lyrics: "" },
-    { number: '368', title: "I WONDER, HAVE I DONE MY BEST FOR JESUS?", lyrics: "" },
-    { number: '319', title: "I WOULD BE TRUE", lyrics: "" },
-    { number: '440', title: "I'LL GO WHERE YOU WANT ME TO GO", lyrics: "" },
-    { number: '396', title: "I'LL LIVE FOR HIM", lyrics: "" },
-    { number: '220', title: "I'LL STAND BY UNTIL THE MORNING", lyrics: "" },
-    { number: '406', title: "I'M A SOLDIER", lyrics: "" },
-    { number: '516', title: "I'M GOING HOME", lyrics: "" },
-    { number: '308', title: "I'M PRESSING ON THE UPWARD WAY", lyrics: "" },
-    { number: '499', title: "I'VE A HOME BEYOND THE RIVER", lyrics: "" },
-    { number: '195', title: "I'VE A MESSAGE FROM THE LORD, HALLELUJAH!", lyrics: "" },
-    { number: '469', title: "I'VE FOUND A FRIEND", lyrics: "" },
-    { number: '230', title: "I'VE FOUND A FRIEND WHO IS ALL TO ME", lyrics: "" },
-    { number: '515', title: "I'VE REACHED THE LAND OF CORN AND WINE", lyrics: "" },
-    { number: '253', title: "I'VE WANDERED FAR AWAY FROM GOD", lyrics: "" },
-    { number: '244', title: "IF YOU ARE TIRED OF THE LOAD OF YOUR SIN", lyrics: "" },
-    { number: '34', title: "IMMORTAL, INVISIBLE", lyrics: "" },
-    { number: '104', title: "IMMORTAL LOVE-FOREVER FULL", lyrics: "" },
-    { number: '88', title: "IN A CAVE", lyrics: "" },
-    { number: '417', title: "IN CHRIST THERE IS NO EAST OR WEST", lyrics: "" },
-    { number: '189', title: "IN JORDAN'S STREAM", lyrics: "" },
-    { number: '459', title: "IN LOVING-KINDNESS JESUS CAME", lyrics: "" },
-    { number: '457', title: "IN MY HEART", lyrics: "" },
-    { number: '455', title: "IN MY HEART THERE RINGS A MELODY", lyrics: "" },
-    { number: '298', title: "IN SHADY, GREEN PASTURES, SO RICH AND SO", lyrics: "" },
-    { number: '480', title: "IN TENDERNESS HE SOUGHT ME", lyrics: "" },
-    { number: '123', title: "IN THE CROSS OF CHRIST I GLORY", lyrics: "" },
-    { number: '264', title: "IN THE GARDEN", lyrics: "" },
-    { number: '276', title: "IN THE HOUR OF TRIAL", lyrics: "" },
-    { number: '504', title: "IN THE SWEET BY AND BY", lyrics: "" },
-    { number: '202', title: "IN TIMES LIKE THESE", lyrics: "" },
-    { number: '315', title: "INTO THE HEART OF JESUS DEEPER AND DEEPER", lyrics: "" },
-    { number: '260', title: "IS MY NAME WRITTEN THERE?", lyrics: "" },
-    { number: '381', title: "IS YOUR ALL ON THE ALTAR?", lyrics: "" },
-    { number: '331', title: "IS YOUR LIFE A CHANNEL OF BLESSING?", lyrics: "" },
-    { number: '450', title: "ISN'T THE LOVE OF JESUS SOMETHING", lyrics: "" },
-];
-
+let hymns;
+loadJSONFile('hymnsTitle.json').then(data => {
+   console.log(data);
+   hymns = data;
+   data.forEach(hymn => {
+      console.log(`${hymn.title} - Number: ${hymn.number}`);
+   });
+});
 
 function searchHymn() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-    const searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = '';
-    if (searchTerm === '') {
-        searchResults.innerHTML = 'Please enter a search term.';
-        return;
-    }
+   const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+   const searchResults = document.getElementById('searchResults');
+   searchResults.innerHTML = '';
+   if (searchTerm === '') {
+      searchResults.innerHTML = 'Please enter a search term.';
+      return;
+   }
 
-    const filteredHymns = hymns.filter(hymn =>
-        hymn.title.toLowerCase().includes(searchTerm) || hymn.number.toString() === searchTerm
-    );
+   const filteredHymns = hymns.filter(hymn =>
+       hymn.title.toLowerCase().includes(searchTerm) || hymn.number.toLowerCase().includes(searchTerm)
+   );
 
-    if (filteredHymns.length === 0) {
-        searchResults.innerHTML = 'No hymns found.';
-    } else {
-        filteredHymns.forEach(hymn => {
-            const hymnElement = document.createElement('div');
-            let number = hymn.number;
-            if (number.length < 3){
-               number = number===2 ? ' ' + number : '  '+ number;
-               console.log("Lenght check :"+ number+ 'i')
-            }
-            hymnElement.className = 'hymnTitle';
-            hymnElement.innerHTML = `<strong>#${number}</strong> - ${hymn.title}<br>${hymn.lyrics}`;
-            searchResults.appendChild(hymnElement);
-        });
-    }
+   if (filteredHymns.length === 0) {
+      searchResults.innerHTML = 'No hymns found.';
+   } else {
+      filteredHymns.forEach(hymn => {
+         const hymnElement = document.createElement('div');
+         let number = hymn.number;
+         if (number.length < 3){
+            number = number===2 ? ' ' + number : '  '+ number;
+            console.log("Lenght check :"+ number+ 'i')
+         }
+         hymnElement.className = 'hymnTitle';
+         hymnElement.innerHTML = `<strong>#${ number}</strong> - ${hymn.title}<br>`;
+         searchResults.appendChild(hymnElement);
+      });
+   }
 }
