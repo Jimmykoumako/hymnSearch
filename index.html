@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hymn Search App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 </head>
 
 <body>
     <div class="container" >
         <div class="filter">
-            <h1>HBC Hymn Search</h1>
-            <input onchange="searchHymn()" type="text" id="searchInput" placeholder="Enter hymn title or number">
-            <button onclick="searchHymn()">Search</button>
+            <h1>HBC Hymns</h1>
+            <input type="text" id="searchInput" placeholder="Enter hymn title or number">
+            <button id="searchBtn" onclick="searchHymn()">Search</button>
         </div>
-        <div id="searchResults"></div>
+        <div id="searchResults" class="search-results"></div>
     </div>
 
     <script src="script.js" ></script>
-    <script src="h.js" ></script>
 </body>
 
 </html>

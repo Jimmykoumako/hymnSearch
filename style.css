@@ -6,51 +6,76 @@ body {
     height: 100%;
     margin: 0;
     background-color: #f0f0f0;
-    padding-top: 5%
+    padding-top: 5%;
+    min-height: 100vh;
+    font-size: 12px;
 }
 
 .container {
-    text-align: center;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-height: 70%;
     overflow-y: scroll;
-    width: 100%;
+
 }
 
 input[type="text"] {
     padding: 8px;
     width: 60%;
     margin-right: 10px;
+    border-radius: 20px;
 }
 
-button {
+#searchBtn {
     padding: 8px 20px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #97afa7;
     color: #fff;
     border: none;
-    border-radius: 4px;
     margin-top: 20px;
+    border-radius: 20px;
 }
 
-button:hover {
-    background-color: #0056b3;
+#searchBtn:hover {
+    background-color: #97afa7;
 }
 
 #searchResults {
+    border-radius: 20px;
+    margin: auto;
     margin-top: 135px;
     margin-bottom: 20px;
-    text-align: left;
+    width: fit-content;
 }
 
 .hymnTitle {
-    background-color: #97afa7;
+    background-color: #f8f9fa;
     white-space: nowrap;
-    overflow: hidden;
-    padding: 5px;
+    overflow-x: clip;
+    padding: 20px;
+}
+
+.hymnTitle div{
+    display: inline-block;
+    right: 0;
+    padding: 10px;
+    background-color: #97afa7;
+}
+
+.hymnTitle a {
+    display: inline-block;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: clip;
+    margin-right: auto;
+    max-width: 50%;
+}
+
+.hymnsTitle div.add{
+    position: absolute;
+    right: 0;
 }
 
 .filter {
@@ -59,11 +84,45 @@ button:hover {
     left: 0;
     right: 0;
     /*width: 100%;*/
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: #f8f9fa;
     padding: 10px 20px;
-    z-index: 100; /* Ensure it's above other content */
+    z-index: 100;
+    text-align: center;
 }
 
 .search {
     display: inline-block;
+}
+
+/* Style for hymnTitle container */
+.hymnTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+}
+
+/* Style for play button container */
+.hymnTitle>div {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for play button icon */
+.hymnTitle .fas.fa-play {
+    margin-right: 10px;
+}
+
+/* Style for title link */
+.hymnTitle a {
+    flex-grow: 1;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Style for add button container */
+.hymnTitle .add {
+    cursor: pointer;
 }
