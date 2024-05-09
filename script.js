@@ -87,28 +87,46 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 
    function togglePlay(hymn) {
-        const playBtn = document.getElementById(`play-${hymn.number}`);
-        const audioSrc = `music/${hymn.number}.mp3`;
+    const playBtn = document.getElementById(`play-${hymn.number}`);
+    const audioSrc = `music/${hymn.number}.mp3`;
 
-        if (!audio || audio.src !== audioSrc) {
-            if (audio) {
-               audio.pause();
-               playBtn.classList.replace('fa-pause', 'fa-play');
-               playBtn.title = 'Play';
-            }
-            audio = new Audio(audioSrc);
-        }
-
-        if (audio.paused) {
-            audio.play();
-            playBtn.classList.replace('fa-play', 'fa-pause');
-            playBtn.title = 'Pause';
-        } else {
+    // Check if there's an existing audio element or if it's playing a different source
+    if (!audio || !(audio.src).includes(`http://localhost:5500/${audioSrc}`)) {
+        // Pause any currently playing audio and update the play button
+        if (audio && !audio.paused) {
             audio.pause();
+            const currentPlayBtn = document.querySelector('.fa-pause');
+            if (currentPlayBtn) {
+                currentPlayBtn.classList.replace('fa-pause', 'fa-play');
+                currentPlayBtn.title = 'Play';
+            }
+        }
+        
+        if (audio) {
+            console.log('audio.src');
+            console.log(audio.src)
+            console.log(`http://localhost:5500/${audioSrc}`)
+        }
+        // Create a new audio element
+        audio = new Audio(audioSrc);
+        audio.addEventListener('ended', () => {
             playBtn.classList.replace('fa-pause', 'fa-play');
             playBtn.title = 'Play';
-        }
+        });
     }
+
+    // Toggle play/pause based on the current audio state
+    if (audio.paused) {
+        audio.play();
+        playBtn.classList.replace('fa-play', 'fa-pause');
+        playBtn.title = 'Pause';
+    } else {
+        console.log('163');
+        audio.pause();
+        playBtn.classList.replace('fa-pause', 'fa-play');
+        playBtn.title = 'Play';
+    }
+}
 
    function addToPlaylist(hymn) {
         if (!playlist.some(item => item.number === hymn.number)) {
