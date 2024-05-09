@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Create play/pause button
             const playButton = document.createElement('div');
+            playButton.classList.add("hymnControl");
             const playButtonIcon = document.createElement('i');
             playButtonIcon.id = `play-${hymn.number}`
             playButtonIcon.classList.add("fas", "fa-play", "main-button");
@@ -55,16 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
             playButton.appendChild(playButtonIcon);
 
             // Create link to music player page
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'hTitle'
             const titleLink = document.createElement('a');
             titleLink.innerHTML = `<strong>#${number}</strong> - ${hymn.title}<br>`;
             titleLink.href = `./music-player/index.html?title=${encodeURIComponent(title)}&number=${encodeURIComponent(number)}`;
             titleLink.target = '_blank'; // Open in new tab
+            titleContainer.appendChild(titleLink)
 
             //Create an add to playlist button
             const addToPlaylistButton = document.createElement('div');
-            addToPlaylistButton.className = "add";
+            addToPlaylistButton.classList.add("add", 'hymnControl');
             const addToPlaylistButtonIcon = document.createElement('i');
-            addToPlaylistButtonIcon.className = `${hymn.number}`
+            addToPlaylistButtonIcon.className = `$add-${hymn.number}`
             addToPlaylistButtonIcon.classList.add("fa", "fa-plus");
             addToPlaylistButtonIcon.title = "Add To Playlist"
             addToPlaylistButtonIcon.onclick = () => {
@@ -74,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Append elements to hymnElement
             hymnElement.appendChild(playButton);
-            hymnElement.appendChild(titleLink);
+            hymnElement.appendChild(titleContainer);
             hymnElement.appendChild(addToPlaylistButton);
 
             searchResults.appendChild(hymnElement);

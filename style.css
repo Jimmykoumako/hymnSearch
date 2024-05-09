@@ -1,14 +1,16 @@
+html {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
-    padding-top: 5%;
-    min-height: 100vh;
-    font-size: 12px;
+    font-size: 25px;
 }
 
 .container {
@@ -16,15 +18,13 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 70%;
-    overflow-y: scroll;
+    width: 100vw;
 
 }
 
 input[type="text"] {
     padding: 8px;
-    width: 60%;
-    margin-right: 10px;
+    width: 50vw;
     border-radius: 20px;
 }
 
@@ -45,23 +45,25 @@ input[type="text"] {
 #searchResults {
     border-radius: 20px;
     margin: auto;
-    margin-top: 135px;
-    margin-bottom: 20px;
-    width: fit-content;
+    width: max-content;
+    min-height: 70vh;
+}
+
+#searchResults .search-results{
+    margin-bottom: 0;
 }
 
 .hymnTitle {
     background-color: #f8f9fa;
-    white-space: nowrap;
-    overflow-x: clip;
-    padding: 20px;
+    width: 80vw;
 }
 
-.hymnTitle div{
+.hymnTitle div.hymnControl{
     display: inline-block;
-    right: 0;
+    text-align: center;
     padding: 10px;
     background-color: #97afa7;
+    margin-right:5px;
 }
 
 .hymnTitle a {
@@ -69,8 +71,9 @@ input[type="text"] {
     text-decoration: none;
     white-space: nowrap;
     overflow: clip;
+    padding-left: 5px;
     margin-right: auto;
-    max-width: 50%;
+    max-width: inherit;
 }
 
 .hymnsTitle div.add{
@@ -78,15 +81,19 @@ input[type="text"] {
     right: 0;
 }
 
+.hTitle a {
+    width: 60vw;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+}
+
 .filter {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    /*width: 100%;*/
     background-color: #f8f9fa;
     padding: 10px 20px;
-    z-index: 100;
     text-align: center;
 }
 
@@ -110,19 +117,38 @@ input[type="text"] {
     align-items: center;
 }
 
-/* Style for play button icon */
-.hymnTitle .fas.fa-play {
-    margin-right: 10px;
-}
-
 /* Style for title link */
 .hymnTitle a {
     flex-grow: 1;
     text-decoration: none;
     color: #333;
+
 }
 
 /* Style for add button container */
 .hymnTitle .add {
     cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+    body {font-size: 12px;}
+
+    #searchResults {
+        padding-top: 120px;
+    }
+
+}
+
+@media screen and (min-width: 500px) {
+    .hymnTitle {
+        width: 50vw;
+    }
+
+    .hTitle a {
+        width: 40vw;
+    }
+
+    #searchResults {
+        padding-top: 22vh;
+    }
 }
