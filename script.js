@@ -101,12 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentPlayBtn.title = 'Play';
             }
         }
-        
-        // if (audio) {
-        //     console.log('audio.src');
-        //     console.log(audio.src)
-        //     console.log(`http://localhost:5500/${audioSrc}`)
-        // }
+
         // Create a new audio element
         audio = new Audio(audioSrc);
         audio.addEventListener('ended', () => {
@@ -121,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         playBtn.classList.replace('fa-play', 'fa-pause');
         playBtn.title = 'Pause';
     } else {
-        console.log('163');
         audio.pause();
         playBtn.classList.replace('fa-pause', 'fa-play');
         playBtn.title = 'Play';
