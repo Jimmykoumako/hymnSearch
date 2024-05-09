@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioSrc = `music/${hymn.number}.mp3`;
 
     // Check if there's an existing audio element or if it's playing a different source
-    if (!audio || !(audio.src).includes(`http://localhost:5500/${audioSrc}`)) {
+    if (!audio || !(audio.src).includes(`${audioSrc}`)) {
         // Pause any currently playing audio and update the play button
         if (audio && !audio.paused) {
             audio.pause();
@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        if (audio) {
-            console.log('audio.src');
-            console.log(audio.src)
-            console.log(`http://localhost:5500/${audioSrc}`)
-        }
+        // if (audio) {
+        //     console.log('audio.src');
+        //     console.log(audio.src)
+        //     console.log(`http://localhost:5500/${audioSrc}`)
+        // }
         // Create a new audio element
         audio = new Audio(audioSrc);
         audio.addEventListener('ended', () => {
