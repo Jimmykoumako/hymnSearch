@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             titleContainer.className = 'hTitle'
             const titleLink = document.createElement('a');
             titleLink.innerHTML = `<strong>#${number}</strong> - ${hymn.title}<br>`;
-            titleLink.href = `./music-player/index.html?title=${encodeURIComponent(title)}&number=${encodeURIComponent(number)}`;
+            titleLink.href = `./player/index.html?number=${encodeURIComponent(number)}`;
             titleLink.target = '_blank'; // Open in new tab
             titleContainer.appendChild(titleLink)
 
