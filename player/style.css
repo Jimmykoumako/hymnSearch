@@ -31,7 +31,9 @@ body {
   position: relative;
   top: -50px;
   left: 50px;
+  overflow: hidden;
 }
+
 
 .img-container img {
   height: 100%;
@@ -70,6 +72,52 @@ h3 {
   height: 100%;
   width: 0%;
   transition: width 0.1s linear;
+}
+.title-container{
+  overflow: hidden;
+  margin: auto 20px;
+  animation-delay: 2s;
+}
+
+
+#title {
+  white-space: nowrap;
+  animation: var(--direction) var(--marquee-speed) linear infinite;
+}
+.title-container:hover{
+  animation-play-state: paused;
+}
+
+.dynamic-styles {
+    --marquee-speed: 20s;
+    --direction: scroll-left;
+    animation: var(--direction) var(--marquee-speed) linear infinite;
+}
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes scroll-right {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+#artist {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 15px 30px auto;
 }
 
 .duration-wrapper {
