@@ -12,7 +12,11 @@ const nextBtn = document.getElementById('next');
 
 let hymns = [];
 let playlist = [];
-// Current Song
+let savedHymns = [];
+
+const hymnNumber = getQueryParam('number');
+
+
 let songIndex = 0;
 async function loadJSONFile(filename) {
     try {
@@ -28,7 +32,20 @@ async function loadJSONFile(filename) {
 }
 
 // Load hymn data from JSON file on page load
-loadJSONFile('./../hymnsTitle.json').then(()=> loadAndPlaySong());
+loadJSONFile('./../hymnsTitle.json').then(()=> {
+    const selectedSong = getHymnByNumber(hymnNumber);
+    if (selectedSong) {
+        playlist.push(selectedSong);
+    }
+    const savedHymnsJSON = localStorage.getItem('HBCPlaylist');
+    if(savedHymnsJSON) {
+        savedHymns = JSON.parse(savedHymnsJSON);
+    }
+    savedHymns.forEach((hymn) => {
+        playlist.push(hymn);
+    });
+    loadSong();
+});
 
 // Function to get query parameter from URL
 function getQueryParam(name) {
@@ -39,17 +56,6 @@ function getQueryParam(name) {
 function getHymnByNumber(hymnNumber) {
    return hymns.find(s => s.number === hymnNumber);
 }
-
-function loadAndPlaySong() {
-        const hymnNumber = getQueryParam('number');
-        const selectedSong = getHymnByNumber(hymnNumber);
-        playlist.push(selectedSong);
-        if (selectedSong) {
-            title.textContent = selectedSong.title;
-            artist.textContent = selectedSong.from;
-            music.src = `./../music/${selectedSong.number}.mp3`;
-        }
-    }
 
 
 function horizontalDynamicScrolling() {
@@ -87,40 +93,38 @@ function pauseSong() {
 
 // Play or Pause Event Listener
 playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
-
+let urlSong = true;
 // Update DOM
 function loadSong() {
-    if(getQueryParam('number')){
-        loadAndPlaySong();
-        return;
-    }
-    if(playlist.length > 0){
-        const currentSong = [playlist[songIndex]]
+    if(playlist){
+        const currentSong = playlist[songIndex]
+        console.log(currentSong)
         title.textContent = currentSong.title;
         artist.textContent = currentSong.from;
         music.src = `./../music/${currentSong.number}.mp3`;
-        playSong();
     }
 }
 
 // Previous Song
 function prevSong() {
     songIndex--;
+    console.log(songIndex);
     if (songIndex < 0) {
-        songIndex = hymns.length - 1;
+        songIndex = playlist.length - 1;
     }
     loadSong(playlist[songIndex]);
-    playSong();
+    if(isPlaying) playSong();
 }
 
 // Next Song
 function nextSong() {
     songIndex++;
-    if (songIndex > hymns.length - 1) {
+    console.log(songIndex);
+    if (songIndex > playlist.length - 1) {
         songIndex = 0;
     }
     loadSong(playlist[songIndex]);
-    playSong();
+    if(isPlaying) playSong();
 }
 
 // On Load - Select First Song
@@ -168,4 +172,5 @@ nextBtn.addEventListener('click', nextSong);
 music.addEventListener('ended', nextSong);
 music.addEventListener('timeupdate', updateProgressBar);
 progressContainer.addEventListener('click', setProgressBar);
+
 
