@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load hymn data from JSON file on page load
-    loadJSONFile('hymnsTitle.json');
+    loadJSONFile('hymnTitles.json');
 
     function searchHymn() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             playButtonIcon.id = `play-${hymn.number}`
             playButtonIcon.classList.add("fas", "fa-play", "main-button");
             playButtonIcon.title = "Play"
-            playButtonIcon.onclick = () => {
-               togglePlay(hymn);
+            playButtonIcon.onclick = (ev) => {
+               togglePlay(hymn, ev.target);
             };
             playButton.appendChild(playButtonIcon);
 
@@ -86,41 +86,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
    }
 
-   function togglePlay(hymn) {
-    const playBtn = document.getElementById(`play-${hymn.number}`);
-    const audioSrc = `music/${hymn.number}.mp3`;
+    function togglePlay(hymn, playBtn) {
+        const audioSrc = `music/${hymn.number}.mp3`;
 
-    // Check if there's an existing audio element or if it's playing a different source
-    if (!audio || !(audio.src).includes(`${audioSrc}`)) {
-        // Pause any currently playing audio and update the play button
-        if (audio && !audio.paused) {
-            audio.pause();
-            const currentPlayBtn = document.querySelector('.fa-pause');
-            if (currentPlayBtn) {
-                currentPlayBtn.classList.replace('fa-pause', 'fa-play');
-                currentPlayBtn.title = 'Play';
+        if (audio && audio.src.includes(audioSrc)) {
+            if (audio.paused) {
+                audio.play();
+                playBtn.classList.replace('fa-play', 'fa-pause');
+                playBtn.title = 'Pause';
+            } else {
+                audio.pause();
+                playBtn.classList.replace('fa-pause', 'fa-play');
+                playBtn.title = 'Play';
             }
+        } else {
+            if (audio && !audio.paused) {
+                audio.pause();
+            }
+            audio = new Audio(audioSrc);
+            audio.addEventListener('ended', () => {
+                playBtn.classList.replace('fa-pause', 'fa-play');
+                playBtn.title = 'Play';
+            });
+            audio.play();
+            playBtn.classList.replace('fa-play', 'fa-pause');
+            playBtn.title = 'Pause';
         }
-
-        // Create a new audio element
-        audio = new Audio(audioSrc);
-        audio.addEventListener('ended', () => {
-            playBtn.classList.replace('fa-pause', 'fa-play');
-            playBtn.title = 'Play';
-        });
     }
-
-    // Toggle play/pause based on the current audio state
-    if (audio.paused) {
-        audio.play();
-        playBtn.classList.replace('fa-play', 'fa-pause');
-        playBtn.title = 'Pause';
-    } else {
-        audio.pause();
-        playBtn.classList.replace('fa-pause', 'fa-play');
-        playBtn.title = 'Play';
-    }
-}
 
    function addToPlaylist(hymn) {
         if (!playlist.some(item => item.number === hymn.number)) {
